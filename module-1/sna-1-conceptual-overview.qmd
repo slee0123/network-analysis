@@ -22,7 +22,7 @@ editor: visual
 
 ## Theory & Method Interdependency
 
-::: columns
+::::: columns
 ::: {.column width="30%"}
 ![](img/carolan.jpeg){fig-align="left" width="100%"}
 :::
@@ -32,7 +32,7 @@ editor: visual
 
 ~\~ From SNA and Education by Bryan @carolan2014~
 :::
-:::
+:::::
 
 ::: notes
 **Speaker Notes:**
@@ -77,7 +77,7 @@ Here's a concrete example of the distinction between SNA and traditional researc
 
 ## Empirical Data
 
-::: columns
+::::: columns
 ::: {.column width="60%"}
 SNA is firmly grounded in **systematic, empirical data collection** using methods refined over decades and still evolving, such as:
 
@@ -90,7 +90,7 @@ SNA is firmly grounded in **systematic, empirical data collection** using method
 ::: {.column width="40%"}
 ![MOOC Network Dataset [@kellogg2015massively] and [@kellogg2014social]](img/mooc-forum.png){fig-align="left" width="80%"}
 :::
-:::
+:::::
 
 ::: notes
 **Speaker Notes:**
@@ -102,7 +102,7 @@ Access to social relations through online learning tools and social media platfo
 
 ## Graphical Imagery
 
-::: columns
+::::: columns
 ::: {.column width="60%"}
 SNA makes freuqent use of **graphical imagery** to represent actors and their relations with one another.
 
@@ -117,7 +117,7 @@ The **sociogram** to the right includes:
 ::: {.column width="40%"}
 ![Sociogram from Who Shall Survive? [@moreno1934shall]](img/moreno-jennings.png){fig-align="center" width="100%"}
 :::
-:::
+:::::
 
 ::: notes
 **Speaker Notes:**
@@ -135,7 +135,7 @@ Answer to the question:
 
 ## Mathematically-Based
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 **Network Stats (Describe)**
 
@@ -156,7 +156,7 @@ Answer to the question:
 
 -   Regression
 :::
-:::
+:::::
 
 ::: notes
 **Speaker Notes:**
@@ -180,7 +180,7 @@ In this section we introduce some very basic terms that are essential for being 
 
 ## Actors
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 Also called **nodes** or **vertices**, actors can represent a range of social entities, like:
 
@@ -198,7 +198,7 @@ Also called **nodes** or **vertices**, actors can represent a range of social en
 ::: {.column width="50%"}
 ![A classroom of middle school students [@pittinsky2008behavioral]](img/actors.png){fig-align="center"}
 :::
-:::
+:::::
 
 ::: notes
 **Speaker Notes:**
@@ -210,7 +210,7 @@ This image is actual data that we'll be working with in this module. It comes fr
 
 ## Ties
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 Also called **relations, edges**, or **links,** ties connect actors to one another and might consist of:
 
@@ -228,7 +228,7 @@ Also called **relations, edges**, or **links,** ties connect actors to one anoth
 ::: {.column width="50%"}
 ![The teacher's perception of student friendships as illustrated by lines (friendships) connecting dots (students).](img/ties.png){fig-align="center"}
 :::
-:::
+:::::
 
 ::: notes
 **Speaker Notes:**
@@ -240,7 +240,7 @@ Note that in the graph, these lines simply indicate whether a friendship does or
 
 ## Attributes
 
-::: columns
+::::: columns
 Finally, actors, ties, and the network as a whole may also contain information, which may be incorporated into visualizations or network models:
 
 ::: {.column width="50%"}
@@ -254,7 +254,7 @@ Finally, actors, ties, and the network as a whole may also contain information, 
 ::: {.column width="50%"}
 ![A sociogram incorporating network attributes](img/attributes.png){fig-align="center"}
 :::
-:::
+:::::
 
 ::: notes
 **Speaker Notes:**
@@ -354,7 +354,7 @@ In preparation for the Module 1 Code-Along and Case Study, the research article 
 
 ## Acknowledgements
 
-::: columns
+::::: columns
 ::: {.column width="20%"}
 ![](img/nsf.jpg){fig-align="center" width="80%"}
 :::
@@ -362,6 +362,6 @@ In preparation for the Module 1 Code-Along and Case Study, the research article 
 ::: {.column width="80%"}
 This work was supported by the National Science Foundation grants DRL-2025090 and DRL-2321128 (ECR:BCSER). Any opinions, findings, and conclusions expressed in this material are those of the authors and do not necessarily reflect the views of the National Science Foundation.
 :::
-:::
+:::::
 
 ## References
