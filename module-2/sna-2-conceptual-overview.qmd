@@ -22,7 +22,7 @@ editor: visual
 
 ## A Quick Refresher
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ### Network Theory
 
@@ -38,7 +38,7 @@ editor: visual
 
 ![](img/nodes-edges.jpeg){width="100%"}
 :::
-:::
+:::::
 
 ::: notes
 **Speaker Notes:**
@@ -95,7 +95,7 @@ Here's a concrete example of the distinction between SNA and traditional researc
 
 ## Defining Ties
 
-::: columns
+::::: columns
 ::: {.column width="60%"}
 ### Relationship & Strength
 
@@ -119,7 +119,7 @@ Here's a concrete example of the distinction between SNA and traditional researc
 
 -   Communications
 :::
-:::
+:::::
 
 ::: notes
 **Speaker Notes:**
@@ -131,7 +131,7 @@ Access to social relations through online learning tools and social media platfo
 
 ## Data Sources
 
-::: columns
+::::: columns
 ::: {.column width="60%"}
 ### Archival Records
 
@@ -155,7 +155,7 @@ Access to social relations through online learning tools and social media platfo
 
 -   Simple or Multiplex
 :::
-:::
+:::::
 
 ::: notes
 **Speaker Notes:**
@@ -233,7 +233,7 @@ Recall that reliability is the **extent to which an instrument yields a similar 
 
 ## Measurement Error
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ### Measurement Issues
 
@@ -257,7 +257,7 @@ Recall that reliability is the **extent to which an instrument yields a similar 
 
 4.  Avoid if possible ;)
 :::
-:::
+:::::
 
 ::: notes
 **Speaker Notes:**
@@ -289,7 +289,7 @@ The Carolan chapter readings focus on issues related to the collection and measu
 
 ## Acknowledgements
 
-::: columns
+::::: columns
 ::: {.column width="20%"}
 ![](img/nsf.jpg){fig-align="center" width="80%"}
 :::
@@ -297,6 +297,6 @@ The Carolan chapter readings focus on issues related to the collection and measu
 ::: {.column width="80%"}
 This work was supported by the National Science Foundation grants DRL-2025090 and DRL-2321128 (ECR:BCSER). Any opinions, findings, and conclusions expressed in this material are those of the authors and do not necessarily reflect the views of the National Science Foundation.
 :::
-:::
+:::::
 
 ## References
