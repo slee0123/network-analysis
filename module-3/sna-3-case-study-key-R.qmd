@@ -867,6 +867,8 @@ ccss_network |>
                          alpha = .05), 
                     max.radius = .5,
                     show.legend = FALSE) 
+
+#having errors
 ```
 
 This clearly does not provide any much insight, nor is it any improvement to our previous sociogram, but it definitely is colorful!!
