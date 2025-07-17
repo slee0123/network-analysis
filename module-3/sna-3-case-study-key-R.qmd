@@ -91,11 +91,11 @@ For our SNA Lab 3 case study, we'll apply some of the same techniques used by th
 
 Click on each of the boxes for a select time period and in the space below list a couple Twitter users identified by their analysis as the following:
 
--   **Transmitters:** YOUR RESPONSE HERE
+-   **Transmitters:** who tweeted a lot, regardless of the extent of their followership
 
--   **Transceivers:** YOUR RESPONSE HERE
+-   **Transceivers:** those who gained their influence by being frequently retweeted and mentioned
 
--   **Transcenders:** YOUR RESPONSE HERE
+-   **Transcenders:** those who were both transmitters and transreceivers
 
 Now visit Act 2 of the methods section and In the space below, identify the network measure used for the first two central actors (hint: it's italicized) and copy their definition used. Note, Transcenders has been completed for you.
 
@@ -156,8 +156,10 @@ First, load the following packages introduced in previous case studies and that 
 library(tidyverse)
 library(tidygraph)
 library(ggraph)
-library(skimr)
+library(skimr) #make summaries of dataset
 library(igraph)
+
+pacman::p_load(ggplot2, tidyverse, readr, igraph, tidygraph, ggraph, janitor)
 ```
 
 ## 2. WRANGLE
@@ -182,6 +184,8 @@ Run the following code to use the `read_csv()` function from the {readr} package
 
 ```{r, import-tweets}
 ccss_tweets <- read_csv("data/ccss-tweets-simple.csv")
+
+ccss_tweets
 ```
 
 ------------------------------------------------------------------------
@@ -219,7 +223,7 @@ view(ccss_tweets)
 
 1.  Which columns you think could be used to construct an edge list.
 
-    -   YOUR RESPONSE HERE
+    -   reply_to_screen_name
 
 #### Extract Edges and Nodes
 
@@ -273,7 +277,7 @@ Run the following code and take a look at the new data frame to make sure it loo
 
 ```{r unnest-tokens}
 ties_2 <- ties_1 %>%
-  unnest_tokens(input = target,
+  unnest_tokens(input = target, #unnest the token
                 output = receiver,
                 to_lower = FALSE) %>%
   relocate(sender, receiver)
@@ -290,7 +294,7 @@ In the code chunk below, use the `drop_na()` function to remove the rows with mi
 ```{r remove-NAs}
 #YOUR CODE HERE
 ties <- ties_2 %>%
-  drop_na(receiver)
+  drop_na(receiver) #remove the rows with missing values
 ```
 
 Now use the code chunk below to take a quick look at our final edgelist and answer the questions that follow:
@@ -301,19 +305,20 @@ ties
 
 1.  How many edges are in our CCSS network?
 
-    -   YOUR RESPONSE HERE
+    -   289 edges
 
 2.  What do these ties/edges/connections represent?
 
-    -   YOUR RESPONSE HERE
+    -   replies and mentions
 
 3.  When do they start and end?
 
-    -   YOUR RESPONSE HERE
+    -   start: 2021/10-end:2021/11
 
 Well done!!! Before moving on to the the nodes in our network, run the following code chunk to save our edgelist to a .csv file in our data folder for later use:
 
 ```{r save-edges}
+#do not write again
 write_csv(ties, "data/ccss-edgelist.csv")
 ```
 
@@ -339,9 +344,9 @@ Since we're only interested in usernames for our nodelist, and since we have a n
 
 ```{r select-actors}
 actors <- actors_1 %>%
-  select(value) %>%
+  select(value) %>% 
   rename(actors = value) %>% 
-  distinct()
+  distinct() #find unique names and remove duplicates
 ```
 
 #### 👉 Your Turn ⤵
@@ -350,17 +355,17 @@ Use the code chunk below to take a quick look at our final `actors` data frame a
 
 ```{r view-actors, eval=FALSE}
 #YOUR CODE HERE
-actors
+view(actors)
 ```
 
 How many unique node/actors are in our CCSS network?
 
--   YOUR RESPONSE HERE
+-   92 unique nodes/actors in our CCSS network
 
 Before we move on, save your nodelist to a .csv file in your data folder using the `write_csv()` function as we did above:
 
 ```{r save-nodelist}
-#YOUR CODE HERE
+#Do not make it again
 write_csv(actors, "data/ccss-nodelist.csv")
 
 ```
@@ -387,6 +392,8 @@ ccss_network <- tbl_graph(edges = ties,
                           directed = TRUE)
 
 ccss_network
+
+#need to check the number of edges and nodes
 ```
 
 #### 👉 Your Turn ⤵
@@ -395,15 +402,15 @@ Take a look at the output for our simple graph above and answer the following qu
 
 1.  Are the numbers and names of nodes and actors consistent with our `actors` and `ties` data frames? What about the integers included in the `from` and `to` columns of the Edge Data?
 
-    -   YOUR RESPONSE HERE
+    -   92 nodes and 289 edges
 
 2.  What do you think "components" refers to? **Hint:** see Chapter 6 of [@carolan2014].
 
-    -   YOUR RESPONSE HERE
+    -   13 components, connetced subgroups
 
 3.  Is our network directed or undirected?
 
-    -   YOUR RESPONSE HERE
+    -   directed - not symmetrical
 
 A quick note about "directed" networks. A **directed network** indicates that a connection or tie is not necessarily reciprocated or mutual. For example, our network is directed because even though a user may follow, mention or reply to someone else, they may not necessarily receive a follow, mention or reply back. A facebook friendship network is undirected, however, since someone can not "friend" someone on Facebook without them also indicating a "friend" relationship, so the friendship is mutual or reciprocated.
 
@@ -440,7 +447,8 @@ This concept of a component is simple and very useful, especially when analyzing
 The {igraph} package has a simple function for identifying the number of components in a network, the size of each component, and which actors belong to each. Let's first take a quick look at the summaries for "weak" components in our network:
 
 ```{r components_weak}
-# components(ccss_network, mode = c("weak"))
+?components
+components(ccss_network, mode = c("weak"))
 ```
 
 While not incredibly intuitive to interpret, the output indicates that there are 13 components as we discovered above, 1 component has 51 members and the smallest components only have 2 members.
@@ -452,7 +460,7 @@ How do you think you might find the "strong" components in our network using the
 ```{r components_strong}
 # YOUR CODE HERE
 
-# components(ccss_network, mode = c("strong"))
+components(ccss_network, mode = c("strong"))
 ```
 
 Wow! If your code was correct, you'll see that we have a whopping 92 distinct components!
@@ -464,9 +472,13 @@ As demonstrated in the previous case study, the {tidygraph} package has a very u
 Let's use the `activate()` function to single out the node list in our network and use the familiar `mutate()` and [`group_components()`](https://tidygraph.data-imaginist.com/reference/group_graph.html) functions to create a new `weak_component` variable that indicates and saves the weak components to which each node belongs:
 
 ```{r group_components}
+
 ccss_network <- ccss_network |>
   activate(nodes) |>
   mutate(weak_component = group_components(type = "weak"))
+#weak is treating as network chunks are undirected
+#strong is treating as network chunks are directed
+#no right answer whether its weak or strong - but our network is directed
 ```
 
 Let's take a look at the nodes in our new `ccss_network`, which should now contain our new variable.
@@ -485,7 +497,7 @@ We could even extend this if we liked to create some standard table summaries us
 
 ```{r count_components}
 ccss_network |>
-  as_tibble() |>
+  as_tibble() |> #creating table
   group_by(weak_component) |>
   summarise(count = n()) |>
   arrange(desc(count))
@@ -532,7 +544,7 @@ Examining cliques is one bottom-up approach that reveals how groups are distribu
 Similar to our component analysis, the {igraph} function has a simple `clique_num()` function for identifying number of completely connected subgroups in a network:
 
 ```{r clique_number}
-clique_num(ccss_network)
+clique_num(ccss_network) #warning message - larger than 3
 ```
 
 As you probably saw above, the `clique_num()` function does not take into account directionality of our ties. It looks like we have 3 clusters of at least 3 actors that all have ties to one another.
@@ -542,7 +554,7 @@ The {igraph} function also has a simple `cliques()` function for identifying mem
 Let's see if there are any cliques that contain a minimum of 4 nodes?
 
 ```{r cliques, eval=FALSE}
-cliques(ccss_network, min = 4, max = NULL)
+cliques(ccss_network, min = 4, max = NULL) #we hace no cliques that contain a minmum of 4 nodes
 ```
 
 Nope! That empty `list()` indicates there are no cliques with . Again, very informative about the "conversation" around the common core.
@@ -672,7 +684,7 @@ Let's dust off our [`ggplot()`](https://ggplot2-book.org/getting-started.html#ba
 ccss_network |> 
   as_tibble() |>
   ggplot() +
-  geom_histogram(aes(x = in_degree))
+  geom_histogram(aes(x = in_degree)) #usual degree of distribution
 ```
 
 We can see that roughly half the egos in the network received about 5 replies or mentions from other users, and no one received more than 6 replies.
@@ -692,7 +704,7 @@ To quickly calculate summary statistics for our nodes, including compositional a
 ```{r skimr}
 ccss_network |> 
   as_tibble() |>
-  skim()
+  skim() #similiar to summarize() provides summar stats
 ```
 
 We can see, for example, that egos in our network are connected with on average just 2.8 alters. Notice also that our mean for in-degree and out-degree are identical. This will always be the case since for every tie that goes "in" there is always one going "out."
@@ -702,7 +714,7 @@ Finally, the {skimr} package like our {tidgraph} package plays nicely with other
 ```{r size_role}
 ccss_network |> 
   as_tibble() |>
-  filter(size < 51) |>
+  filter(size < 51) |> #those with less than 51 alters
   group_by(weak_component) |>
   select(size) |>
   skim()
